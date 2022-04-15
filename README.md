@@ -1,6 +1,6 @@
 # Final-Jan-April-2022
 Name:
-Hanoi Tower
+Application of the tower of hanoi in psychology
 
 Description:
 The hanoi tower is game we developed using python and brought to life(made interactive) using a package called pygame.
