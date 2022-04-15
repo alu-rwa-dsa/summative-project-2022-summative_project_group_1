@@ -40,9 +40,10 @@ white_smoke = (245, 245, 245)
 
 
 def blit_text(screen, text, midtop, aa=True, font=None, font_name=None, size=None, color=(255, 0, 0)):
-    """
+"""
 
-    :param screen: Screen size to display the game - Allows images to be drawn
+    **blit_text(args) method basic info**
+    :param screen: Screen intended for gameplay and interactivity with the user
     :type screen:blit (block transfer)
     :param text:
     :type text: Any
@@ -58,7 +59,10 @@ def blit_text(screen, text, midtop, aa=True, font=None, font_name=None, size=Non
     :type size: Any = None
     :param color:
     :type color: Tuple[int, int, int] = (255, 0, 0)) -> None
+
+
     """
+
     if font is None:  # font option is provided to save memory if font is
         font = pygame.font.SysFont(font_name, size)  # already loaded and needs to be reused many times
     font_surface = font.render(text, aa, color)
@@ -69,7 +73,8 @@ def blit_text(screen, text, midtop, aa=True, font=None, font_name=None, size=Non
 
 def menu_screen():
     """
-    To be called before starting actual game loop
+
+    **menu_screen():** To be called before starting actual game loop
     This is the initial menu of the screen
 
     """
@@ -111,7 +116,8 @@ def menu_screen():
 
 def game_over():
     """
-    Game over screen after the game is terminated to show
+
+    **game_over():** Game over screen after the game is terminated to show
     cognitive ability of the user
 
     """
@@ -146,7 +152,8 @@ def game_over():
 
 def draw_towers():
     """
-    Function to draw the towers or rods used for the game
+
+    **draw_towers():** Method to draw the towers or rods used for the game
 
     """
     global screen
@@ -159,7 +166,8 @@ def draw_towers():
 
 def make_disks():
     """
-    Function to create the disks
+
+    **make_disks():** Method to create the disks
 
     """
     global n_disks, disks
@@ -180,10 +188,11 @@ def make_disks():
 
 def draw_disks():
     """
-    Function to draw the disks
 
+    **draw_disks():** Method to draw the disks
     :return: Display the drawn disks on the screen
     :rtype: none
+
     """
     global screen, disks
     for disk in disks:
@@ -193,10 +202,11 @@ def draw_disks():
 
 def draw_ptr():
     """
-    Function to show interactivity of the discs to the user
 
+    **draw_ptr():** Method to show interactivity of the discs to the user
     :return: Shows the cursor which is used to move the disks
     :rtype: none
+
     """
     ptr_points = [(towers_midx[pointing_at] - 7, 440), (towers_midx[pointing_at] + 7, 440),
                   (towers_midx[pointing_at], 433)]
@@ -206,7 +216,9 @@ def draw_ptr():
 
 def check_won():
     """
-    Function to check if the user has won the game
+
+    **check_won():** Method to check if the user has won the game
+
     """
     global disks
     over = True
@@ -220,7 +232,9 @@ def check_won():
 
 def reset():
     """
-    Function to reset the game
+
+    **reset():** Method to reset the game
+
     """
     global steps, pointing_at, floating, floater
     steps = 0
@@ -231,6 +245,7 @@ def reset():
     make_disks()
 
     """
+    
     Call of the menu_screen and make_disks methods to start the game
 
     """
@@ -240,8 +255,10 @@ menu_screen()
 make_disks()
 
 """
+
     A loop is used to control the interactivity with the user and in the case of an error,
     a message is printed
+    
 """
 
 # main game loop:
