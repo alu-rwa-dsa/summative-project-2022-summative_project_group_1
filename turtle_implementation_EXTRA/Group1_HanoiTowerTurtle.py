@@ -59,7 +59,7 @@ def move_disc(disc, pin):
     while disc.ycor()>pin.pos_list[pin.count]:
         disc.goto(disc.xcor(),disc.ycor()-5)
         win.update()
-    time.sleep(0.01)
+    time.sleep(0.80)
 
 # rules for movign the discs
 def move(f,t):

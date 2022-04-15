@@ -126,18 +126,18 @@ def game_over():
         blit_text(screen, 'You finished in minumum steps!', (320, 300), font_name='Montserrat', size=35, color=green)
         blit_text(screen, 'This shows impeccable cognitive function!', (320, 320), font_name='Montserrat', size=35,
                   color=green)
-    elif steps - min_steps <= 4:
+    elif steps <= min_steps+(min_steps*0.20):
         blit_text(screen, 'You did okay', (320, 300), font_name='Montserrat', size=35, color=green)
         blit_text(screen, 'Make sure to be careful and more observing, No need to approach a specialist', (320, 325),
                   font_name='Montserrat', size=26, color=green)
-    elif 4 < steps - min_steps <= 7:
+    elif min_steps+(min_steps*0.20) < steps <= min_steps+(min_steps*0.50):
         blit_text(screen, 'This is not good', (320, 300), font_name='Montserrat', size=30, color=orange)
         blit_text(screen, 'Consider reaching out to a specialist for any underlying cognitive difficulties', (320, 325),
                   font_name='Montserrat', size=24, color=orange)
-    elif steps - min_steps > 7:
+    elif steps > min_steps+(min_steps*0.50):
         blit_text(screen, 'You did poorly', (320, 300), font_name='Montserrat', size=30, color=red)
         blit_text(screen, 'There seems to be signs of severe congitive failure, seek help ASAP', (320, 325),
-                  font_name='Montserrat', size=28, color=red)
+                  font_name='Montserrat', size=27, color=red)
     pygame.display.flip()
     time.sleep(10)  # wait for 2 secs
     pygame.quit()  # pygame exit
