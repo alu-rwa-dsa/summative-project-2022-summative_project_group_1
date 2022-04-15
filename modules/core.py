@@ -40,7 +40,7 @@ white_smoke = (245, 245, 245)
 
 
 def blit_text(screen, text, midtop, aa=True, font=None, font_name=None, size=None, color=(255, 0, 0)):
-"""
+    """
 
     **blit_text(args) method basic info**
     :param screen: Screen intended for gameplay and interactivity with the user
@@ -65,10 +65,10 @@ def blit_text(screen, text, midtop, aa=True, font=None, font_name=None, size=Non
 
     if font is None:  # font option is provided to save memory if font is
         font = pygame.font.SysFont(font_name, size)  # already loaded and needs to be reused many times
-    font_surface = font.render(text, aa, color)
-    font_rect = font_surface.get_rect()
-    font_rect.midtop = midtop
-    screen.blit(font_surface, font_rect)
+        font_surface = font.render(text, aa, color)
+        font_rect = font_surface.get_rect()
+        font_rect.midtop = midtop
+        screen.blit(font_surface, font_rect)
 
 
 def menu_screen():
