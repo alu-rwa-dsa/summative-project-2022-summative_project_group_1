@@ -8,12 +8,13 @@ this game uses discs and rods. the player has to move the discs from rod A to Ro
 the player can not place a big rod on a smaller rod and the moves the player makes are counted as the game goes to determine their cognitive abilities.
 
 Installation:
-to play this game you will need to have Pycharm installed in your PC(as the game hasn't been exported into an actually app yet) and you can download it for free on the internet
-after installing the right environment to run the game, you will need to install a package called pygame to be able to access the GUI. 
+to play this game you will need to have Pycharm installed in your PC(as the game hasn't been exported into an actually app yet) and you can download it for free on the internet after installing the right environment to run the game, you will need to install a package called pygame to be able to access the GUI. 
 to access the package just go to the bottom of the pycharm screen and click on package, search for pygame in the search box and install it.
+To view the various methods of the program, the sphinx package is used to display on a chosen web browser via pycharm. This is simple done by a ./make html command on the terminal in the docs folder of the project
 
 Resources:
 Pycharm Instalation: https://www.jetbrains.com/pycharm/download/#section=windows
+Sphinx Installation: https://sphinx-tutorial.readthedocs.io/start/
 Instalation walkthrough: https://youtu.be/W8C097f6Hcg
 
 Usage:
