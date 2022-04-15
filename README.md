@@ -12,6 +12,10 @@ to play this game you will need to have Pycharm installed in your PC(as the game
 after installing the right environment to run the game, you will need to install a package called pygame to be able to access the GUI. 
 to access the package just go to the bottom of the pycharm screen and click on package, search for pygame in the search box and install it.
 
+Resources:
+Pycharm Instalation: https://www.jetbrains.com/pycharm/download/#section=windows
+Instalation walkthrough: https://youtu.be/W8C097f6Hcg
+
 Usage:
 the game is very simple to run. once you have set up the environment and downloaded the package, right click on your screen and select run. a pop up screen will appear and prompt you
 to select the number of disc you would like to play with, use the arrow keys to determine that, and then click enter. 
