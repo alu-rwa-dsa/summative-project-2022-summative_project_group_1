@@ -9,7 +9,9 @@ Welcome to Application of the tower of hanoi in psychology's documentation!
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
-
+   
+.. automodule:: core
+   :members:
 
 
 Indices and tables
