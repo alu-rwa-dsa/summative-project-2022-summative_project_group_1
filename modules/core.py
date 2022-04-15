@@ -41,8 +41,7 @@ white_smoke = (245, 245, 245)
 
 def blit_text(screen, text, midtop, aa=True, font=None, font_name=None, size=None, color=(255, 0, 0)):
     """
-
-    **blit_text(args) method basic info**
+    
     :param screen: Screen intended for gameplay and interactivity with the user
     :type screen:blit (block transfer)
     :param text:
@@ -74,7 +73,7 @@ def blit_text(screen, text, midtop, aa=True, font=None, font_name=None, size=Non
 def menu_screen():
     """
 
-    **menu_screen():** To be called before starting actual game loop
+    Method to be called before starting actual game loop
     This is the initial menu of the screen
 
     """
@@ -117,8 +116,8 @@ def menu_screen():
 def game_over():
     """
 
-    **game_over():** Game over screen after the game is terminated to show
-    cognitive ability of the user
+    Method to end the game after the game shows
+    cognitive ability of the user with the corresponding results
 
     """
     global screen, steps
@@ -153,7 +152,7 @@ def game_over():
 def draw_towers():
     """
 
-    **draw_towers():** Method to draw the towers or rods used for the game
+    Method to draw the towers or rods used for the game
 
     """
     global screen
@@ -167,7 +166,7 @@ def draw_towers():
 def make_disks():
     """
 
-    **make_disks():** Method to create the disks
+    Method to create the disks
 
     """
     global n_disks, disks
@@ -189,7 +188,7 @@ def make_disks():
 def draw_disks():
     """
 
-    **draw_disks():** Method to draw the disks
+    Method to draw the disks
     :return: Display the drawn disks on the screen
     :rtype: none
 
@@ -203,7 +202,7 @@ def draw_disks():
 def draw_ptr():
     """
 
-    **draw_ptr():** Method to show interactivity of the discs to the user
+    Method to show interactivity of the discs to the user
     :return: Shows the cursor which is used to move the disks
     :rtype: none
 
@@ -217,7 +216,7 @@ def draw_ptr():
 def check_won():
     """
 
-    **check_won():** Method to check if the user has won the game
+    Method to check if the user has won the game
 
     """
     global disks
@@ -233,7 +232,7 @@ def check_won():
 def reset():
     """
 
-    **reset():** Method to reset the game
+    Method to reset the game
 
     """
     global steps, pointing_at, floating, floater
