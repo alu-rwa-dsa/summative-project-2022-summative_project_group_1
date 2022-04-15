@@ -1,0 +1,193 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Welcome to Application of the tower of hanoi in psychology’s documentation! &#8212; Application of the tower of hanoi in psychology 1.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="welcome-to-application-of-the-tower-of-hanoi-in-psychology-s-documentation">
+<h1>Welcome to Application of the tower of hanoi in psychology’s documentation!<a class="headerlink" href="#welcome-to-application-of-the-tower-of-hanoi-in-psychology-s-documentation" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+</div>
+<span class="target" id="module-core"></span><section id="dsa-summative-test-for-cognitive-recognition-using-a-tower-of-hanoi-puzzle-game">
+<h2>DSA Summative: Test for cognitive recognition using a tower of hanoi puzzle game<a class="headerlink" href="#dsa-summative-test-for-cognitive-recognition-using-a-tower-of-hanoi-puzzle-game" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="core.blit_text">
+<span class="sig-prename descclassname"><span class="pre">core.</span></span><span class="sig-name descname"><span class="pre">blit_text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">screen</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">text</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">midtop</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aa</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">font</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">font_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(255,</span> <span class="pre">0,</span> <span class="pre">0)</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core.html#blit_text"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.blit_text" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>screen</strong> – Screen intended for gameplay and interactivity with the user</p>
+</dd>
+</dl>
+<p>:type screen:blit (block transfer)
+:param text: text if any implemented in the app
+:type text: Any
+:param midtop: integer value used for measurements in the program
+:type midtop: Any
+:param aa: boolean parameter to use in the app
+:type aa: bool = True
+:param font: Font of the game if any
+:type font: Optional[{render}] = None
+:param font_name: Font name or family of the game if any
+:type font_name: Any = None
+:param size: size appropriate for the app
+:type size: Any = None
+:param color: colors used in the app
+:type color: Tuple[int, int, int] = (255, 0, 0)) -&gt; None</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="core.check_won">
+<span class="sig-prename descclassname"><span class="pre">core.</span></span><span class="sig-name descname"><span class="pre">check_won</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core.html#check_won"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.check_won" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method to check if the user has won the game</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="core.draw_disks">
+<span class="sig-prename descclassname"><span class="pre">core.</span></span><span class="sig-name descname"><span class="pre">draw_disks</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core.html#draw_disks"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.draw_disks" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method to draw the disks
+:return: Display the drawn disks on the screen
+:rtype: none</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="core.draw_ptr">
+<span class="sig-prename descclassname"><span class="pre">core.</span></span><span class="sig-name descname"><span class="pre">draw_ptr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core.html#draw_ptr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.draw_ptr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method to show interactivity of the discs to the user
+:return: Shows the cursor which is used to move the disks
+:rtype: none</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="core.draw_towers">
+<span class="sig-prename descclassname"><span class="pre">core.</span></span><span class="sig-name descname"><span class="pre">draw_towers</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core.html#draw_towers"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.draw_towers" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method to draw the towers or rods used for the game</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="core.game_over">
+<span class="sig-prename descclassname"><span class="pre">core.</span></span><span class="sig-name descname"><span class="pre">game_over</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core.html#game_over"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.game_over" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method to end the game after the game is terminated to show
+cognitive ability of the user with the corresponding results</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="core.make_disks">
+<span class="sig-prename descclassname"><span class="pre">core.</span></span><span class="sig-name descname"><span class="pre">make_disks</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core.html#make_disks"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.make_disks" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method to create the disks</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="core.menu_screen">
+<span class="sig-prename descclassname"><span class="pre">core.</span></span><span class="sig-name descname"><span class="pre">menu_screen</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core.html#menu_screen"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.menu_screen" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method to be called before starting actual game loop
+This is the initial menu of the screen</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="core.reset">
+<span class="sig-prename descclassname"><span class="pre">core.</span></span><span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core.html#reset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.reset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method to reset the game</p>
+</dd></dl>
+
+</section>
+</section>
+<section id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+</ul>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="#">Application of the tower of hanoi in psychology</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="#">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2022, Summative Group 1.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.4.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/index.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

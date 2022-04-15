@@ -1,0 +1,409 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>core &#8212; Application of the tower of hanoi in psychology 1.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for core</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">DSA Summative: Test for cognitive recognition using a tower of hanoi puzzle game</span>
+<span class="sd">----------------------</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">pygame</span><span class="o">,</span> <span class="nn">sys</span><span class="o">,</span> <span class="nn">time</span><span class="o">,</span> <span class="nn">tkinter</span>
+<span class="kn">from</span> <span class="nn">tkinter</span> <span class="kn">import</span> <span class="n">messagebox</span>
+
+<span class="n">root</span> <span class="o">=</span> <span class="n">tkinter</span><span class="o">.</span><span class="n">Tk</span><span class="p">()</span>
+<span class="n">root</span><span class="o">.</span><span class="n">withdraw</span><span class="p">()</span>
+
+<span class="n">pygame</span><span class="o">.</span><span class="n">init</span><span class="p">()</span>
+<span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">set_caption</span><span class="p">(</span><span class="s2">&quot;DSA Summative Group 1&quot;</span><span class="p">)</span>
+<span class="n">screen</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">set_mode</span><span class="p">((</span><span class="mi">640</span><span class="p">,</span> <span class="mi">480</span><span class="p">))</span>
+<span class="n">clock</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">Clock</span><span class="p">()</span>
+
+<span class="n">game_done</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="n">framerate</span> <span class="o">=</span> <span class="mi">60</span>
+
+<span class="c1"># game vars:</span>
+<span class="n">steps</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">n_disks</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">disks</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">towers_midx</span> <span class="o">=</span> <span class="p">[</span><span class="mi">120</span><span class="p">,</span> <span class="mi">320</span><span class="p">,</span> <span class="mi">520</span><span class="p">]</span>
+<span class="n">pointing_at</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">floating</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="n">floater</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="c1"># colors:</span>
+<span class="n">white</span> <span class="o">=</span> <span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">)</span>
+<span class="n">black</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">red</span> <span class="o">=</span> <span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">orange</span> <span class="o">=</span> <span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">165</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">blue</span> <span class="o">=</span> <span class="p">(</span><span class="mi">78</span><span class="p">,</span> <span class="mi">162</span><span class="p">,</span> <span class="mi">196</span><span class="p">)</span>
+<span class="n">grey</span> <span class="o">=</span> <span class="p">(</span><span class="mi">170</span><span class="p">,</span> <span class="mi">170</span><span class="p">,</span> <span class="mi">170</span><span class="p">)</span>
+<span class="n">green</span> <span class="o">=</span> <span class="p">(</span><span class="mi">77</span><span class="p">,</span> <span class="mi">206</span><span class="p">,</span> <span class="mi">145</span><span class="p">)</span>
+<span class="n">ghost_white</span> <span class="o">=</span> <span class="p">(</span><span class="mi">248</span><span class="p">,</span> <span class="mi">248</span><span class="p">,</span> <span class="mi">255</span><span class="p">)</span>
+<span class="n">white_smoke</span> <span class="o">=</span> <span class="p">(</span><span class="mi">245</span><span class="p">,</span> <span class="mi">245</span><span class="p">,</span> <span class="mi">245</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="blit_text"><a class="viewcode-back" href="../index.html#core.blit_text">[docs]</a><span class="k">def</span> <span class="nf">blit_text</span><span class="p">(</span><span class="n">screen</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="n">midtop</span><span class="p">,</span> <span class="n">aa</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">font</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">font_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    :param screen: Screen intended for gameplay and interactivity with the user</span>
+<span class="sd">    :type screen:blit (block transfer)</span>
+<span class="sd">    :param text: text if any implemented in the app</span>
+<span class="sd">    :type text: Any</span>
+<span class="sd">    :param midtop: integer value used for measurements in the program</span>
+<span class="sd">    :type midtop: Any</span>
+<span class="sd">    :param aa: boolean parameter to use in the app</span>
+<span class="sd">    :type aa: bool = True</span>
+<span class="sd">    :param font: Font of the game if any</span>
+<span class="sd">    :type font: Optional[{render}] = None</span>
+<span class="sd">    :param font_name: Font name or family of the game if any</span>
+<span class="sd">    :type font_name: Any = None</span>
+<span class="sd">    :param size: size appropriate for the app</span>
+<span class="sd">    :type size: Any = None</span>
+<span class="sd">    :param color: colors used in the app</span>
+<span class="sd">    :type color: Tuple[int, int, int] = (255, 0, 0)) -&gt; None</span>
+
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">font</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># font option is provided to save memory if font is</span>
+        <span class="n">font</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">font</span><span class="o">.</span><span class="n">SysFont</span><span class="p">(</span><span class="n">font_name</span><span class="p">,</span> <span class="n">size</span><span class="p">)</span>  <span class="c1"># already loaded and needs to be reused many times</span>
+        <span class="n">font_surface</span> <span class="o">=</span> <span class="n">font</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">aa</span><span class="p">,</span> <span class="n">color</span><span class="p">)</span>
+        <span class="n">font_rect</span> <span class="o">=</span> <span class="n">font_surface</span><span class="o">.</span><span class="n">get_rect</span><span class="p">()</span>
+        <span class="n">font_rect</span><span class="o">.</span><span class="n">midtop</span> <span class="o">=</span> <span class="n">midtop</span>
+        <span class="n">screen</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="n">font_surface</span><span class="p">,</span> <span class="n">font_rect</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="menu_screen"><a class="viewcode-back" href="../index.html#core.menu_screen">[docs]</a><span class="k">def</span> <span class="nf">menu_screen</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    Method to be called before starting actual game loop</span>
+<span class="sd">    This is the initial menu of the screen</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">global</span> <span class="n">screen</span><span class="p">,</span> <span class="n">n_disks</span><span class="p">,</span> <span class="n">game_done</span>
+    <span class="n">menu_done</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="k">while</span> <span class="ow">not</span> <span class="n">menu_done</span><span class="p">:</span>  <span class="c1"># every screen/scene/level has its own loop</span>
+        <span class="n">screen</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">ghost_white</span><span class="p">)</span>
+        <span class="n">blit_text</span><span class="p">(</span><span class="n">screen</span><span class="p">,</span> <span class="s1">&#39;Tower of Hanoi Implementation&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mi">320</span><span class="p">,</span> <span class="mi">70</span><span class="p">),</span> <span class="n">font_name</span><span class="o">=</span><span class="s1">&#39;Montserrat&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">55</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">blue</span><span class="p">)</span>
+        <span class="n">blit_text</span><span class="p">(</span><span class="n">screen</span><span class="p">,</span> <span class="s1">&#39;Use arrow keys to select difficulty:&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mi">320</span><span class="p">,</span> <span class="mi">150</span><span class="p">),</span> <span class="n">font_name</span><span class="o">=</span><span class="s1">&#39;Montserrat&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span>
+                  <span class="n">color</span><span class="o">=</span><span class="n">grey</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">n_disks</span> <span class="o">&lt;=</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="n">blit_text</span><span class="p">(</span><span class="n">screen</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">n_disks</span><span class="p">),</span> <span class="p">(</span><span class="mi">320</span><span class="p">,</span> <span class="mi">222</span><span class="p">),</span> <span class="n">font_name</span><span class="o">=</span><span class="s1">&#39;Montserrat&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">53</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">green</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="mi">2</span> <span class="o">&lt;</span> <span class="n">n_disks</span> <span class="o">&lt;=</span> <span class="mi">4</span><span class="p">:</span>
+            <span class="n">blit_text</span><span class="p">(</span><span class="n">screen</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">n_disks</span><span class="p">),</span> <span class="p">(</span><span class="mi">320</span><span class="p">,</span> <span class="mi">222</span><span class="p">),</span> <span class="n">font_name</span><span class="o">=</span><span class="s1">&#39;Montserrat&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">53</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">orange</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">n_disks</span> <span class="o">&gt;</span> <span class="mi">4</span><span class="p">:</span>
+            <span class="n">blit_text</span><span class="p">(</span><span class="n">screen</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">n_disks</span><span class="p">),</span> <span class="p">(</span><span class="mi">320</span><span class="p">,</span> <span class="mi">222</span><span class="p">),</span> <span class="n">font_name</span><span class="o">=</span><span class="s1">&#39;Montserrat&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">53</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">red</span><span class="p">)</span>
+        <span class="n">blit_text</span><span class="p">(</span><span class="n">screen</span><span class="p">,</span> <span class="s1">&#39;Press Enter to Start&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mi">320</span><span class="p">,</span> <span class="mi">300</span><span class="p">),</span> <span class="n">font_name</span><span class="o">=</span><span class="s1">&#39;Montserrat&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">blue</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">pygame</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">KEYDOWN</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">key</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">K_q</span><span class="p">:</span>
+                    <span class="n">menu_done</span> <span class="o">=</span> <span class="kc">True</span>
+                    <span class="n">game_done</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">key</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">K_RETURN</span><span class="p">:</span>
+                    <span class="n">menu_done</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">key</span> <span class="ow">in</span> <span class="p">[</span><span class="n">pygame</span><span class="o">.</span><span class="n">K_RIGHT</span><span class="p">,</span> <span class="n">pygame</span><span class="o">.</span><span class="n">K_UP</span><span class="p">]:</span>
+                    <span class="n">n_disks</span> <span class="o">+=</span> <span class="mi">1</span>
+                    <span class="k">if</span> <span class="n">n_disks</span> <span class="o">&gt;</span> <span class="mi">7</span><span class="p">:</span>
+                        <span class="n">n_disks</span> <span class="o">=</span> <span class="mi">7</span>
+                <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">key</span> <span class="ow">in</span> <span class="p">[</span><span class="n">pygame</span><span class="o">.</span><span class="n">K_LEFT</span><span class="p">,</span> <span class="n">pygame</span><span class="o">.</span><span class="n">K_DOWN</span><span class="p">]:</span>
+                    <span class="n">n_disks</span> <span class="o">-=</span> <span class="mi">1</span>
+                    <span class="k">if</span> <span class="n">n_disks</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+                        <span class="n">n_disks</span> <span class="o">=</span> <span class="mi">1</span>
+            <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">QUIT</span><span class="p">:</span>
+                <span class="n">menu_done</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="n">game_done</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">flip</span><span class="p">()</span>
+        <span class="n">clock</span><span class="o">.</span><span class="n">tick</span><span class="p">(</span><span class="mi">60</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="game_over"><a class="viewcode-back" href="../index.html#core.game_over">[docs]</a><span class="k">def</span> <span class="nf">game_over</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    Method to end the game after the game is terminated to show</span>
+<span class="sd">    cognitive ability of the user with the corresponding results</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">global</span> <span class="n">screen</span><span class="p">,</span> <span class="n">steps</span>
+    <span class="n">screen</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">white_smoke</span><span class="p">)</span>
+    <span class="n">min_steps</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">**</span> <span class="n">n_disks</span> <span class="o">-</span> <span class="mi">1</span>
+    <span class="n">blit_text</span><span class="p">(</span><span class="n">screen</span><span class="p">,</span> <span class="s1">&#39;Congratulations, You Win&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mi">320</span><span class="p">,</span> <span class="mi">70</span><span class="p">),</span> <span class="n">font_name</span><span class="o">=</span><span class="s1">&#39;Montserrat&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">72</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">blue</span><span class="p">)</span>
+    <span class="n">blit_text</span><span class="p">(</span><span class="n">screen</span><span class="p">,</span> <span class="s1">&#39;Congratulations, You Win&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mi">322</span><span class="p">,</span> <span class="mi">70</span><span class="p">),</span> <span class="n">font_name</span><span class="o">=</span><span class="s1">&#39;Montserrat&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">72</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">blue</span><span class="p">)</span>
+    <span class="n">blit_text</span><span class="p">(</span><span class="n">screen</span><span class="p">,</span> <span class="s1">&#39;Steps Taken to complete: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">steps</span><span class="p">),</span> <span class="p">(</span><span class="mi">320</span><span class="p">,</span> <span class="mi">200</span><span class="p">),</span> <span class="n">font_name</span><span class="o">=</span><span class="s1">&#39;Montserrat&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">55</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">grey</span><span class="p">)</span>
+    <span class="n">blit_text</span><span class="p">(</span><span class="n">screen</span><span class="p">,</span> <span class="s1">&#39;Minimum Steps: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">min_steps</span><span class="p">),</span> <span class="p">(</span><span class="mi">320</span><span class="p">,</span> <span class="mi">160</span><span class="p">),</span> <span class="n">font_name</span><span class="o">=</span><span class="s1">&#39;Montserrat&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">55</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">grey</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">steps</span> <span class="o">-</span> <span class="n">min_steps</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">blit_text</span><span class="p">(</span><span class="n">screen</span><span class="p">,</span> <span class="s1">&#39;You finished in minumum steps!&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mi">320</span><span class="p">,</span> <span class="mi">300</span><span class="p">),</span> <span class="n">font_name</span><span class="o">=</span><span class="s1">&#39;Montserrat&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">35</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">green</span><span class="p">)</span>
+        <span class="n">blit_text</span><span class="p">(</span><span class="n">screen</span><span class="p">,</span> <span class="s1">&#39;This shows impeccable cognitive function!&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mi">320</span><span class="p">,</span> <span class="mi">320</span><span class="p">),</span> <span class="n">font_name</span><span class="o">=</span><span class="s1">&#39;Montserrat&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">35</span><span class="p">,</span>
+                  <span class="n">color</span><span class="o">=</span><span class="n">green</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">steps</span> <span class="o">&lt;=</span> <span class="n">min_steps</span><span class="o">+</span><span class="p">(</span><span class="n">min_steps</span><span class="o">*</span><span class="mf">0.20</span><span class="p">):</span>
+        <span class="n">blit_text</span><span class="p">(</span><span class="n">screen</span><span class="p">,</span> <span class="s1">&#39;You did okay&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mi">320</span><span class="p">,</span> <span class="mi">300</span><span class="p">),</span> <span class="n">font_name</span><span class="o">=</span><span class="s1">&#39;Montserrat&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">35</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">green</span><span class="p">)</span>
+        <span class="n">blit_text</span><span class="p">(</span><span class="n">screen</span><span class="p">,</span> <span class="s1">&#39;Make sure to be careful and more observing, No need to approach a specialist&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mi">320</span><span class="p">,</span> <span class="mi">325</span><span class="p">),</span>
+                  <span class="n">font_name</span><span class="o">=</span><span class="s1">&#39;Montserrat&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">26</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">green</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">min_steps</span><span class="o">+</span><span class="p">(</span><span class="n">min_steps</span><span class="o">*</span><span class="mf">0.20</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">steps</span> <span class="o">&lt;=</span> <span class="n">min_steps</span><span class="o">+</span><span class="p">(</span><span class="n">min_steps</span><span class="o">*</span><span class="mf">0.50</span><span class="p">):</span>
+        <span class="n">blit_text</span><span class="p">(</span><span class="n">screen</span><span class="p">,</span> <span class="s1">&#39;This is not good&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mi">320</span><span class="p">,</span> <span class="mi">300</span><span class="p">),</span> <span class="n">font_name</span><span class="o">=</span><span class="s1">&#39;Montserrat&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">orange</span><span class="p">)</span>
+        <span class="n">blit_text</span><span class="p">(</span><span class="n">screen</span><span class="p">,</span> <span class="s1">&#39;Consider reaching out to a specialist for any underlying cognitive difficulties&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mi">320</span><span class="p">,</span> <span class="mi">325</span><span class="p">),</span>
+                  <span class="n">font_name</span><span class="o">=</span><span class="s1">&#39;Montserrat&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">orange</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">steps</span> <span class="o">&gt;</span> <span class="n">min_steps</span><span class="o">+</span><span class="p">(</span><span class="n">min_steps</span><span class="o">*</span><span class="mf">0.50</span><span class="p">):</span>
+        <span class="n">blit_text</span><span class="p">(</span><span class="n">screen</span><span class="p">,</span> <span class="s1">&#39;You did poorly&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mi">320</span><span class="p">,</span> <span class="mi">300</span><span class="p">),</span> <span class="n">font_name</span><span class="o">=</span><span class="s1">&#39;Montserrat&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">red</span><span class="p">)</span>
+        <span class="n">blit_text</span><span class="p">(</span><span class="n">screen</span><span class="p">,</span> <span class="s1">&#39;There seems to be signs of severe congitive failure, seek help ASAP&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mi">320</span><span class="p">,</span> <span class="mi">325</span><span class="p">),</span>
+                  <span class="n">font_name</span><span class="o">=</span><span class="s1">&#39;Montserrat&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">27</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">red</span><span class="p">)</span>
+    <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">flip</span><span class="p">()</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>  <span class="c1"># wait for 2 secs</span>
+    <span class="n">pygame</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>  <span class="c1"># pygame exit</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>  <span class="c1"># console exit</span></div>
+
+
+<div class="viewcode-block" id="draw_towers"><a class="viewcode-back" href="../index.html#core.draw_towers">[docs]</a><span class="k">def</span> <span class="nf">draw_towers</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    Method to draw the towers or rods used for the game</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">global</span> <span class="n">screen</span>
+    <span class="k">for</span> <span class="n">xpos</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">40</span><span class="p">,</span> <span class="mi">460</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">200</span><span class="p">):</span>
+        <span class="n">pygame</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">rect</span><span class="p">(</span><span class="n">screen</span><span class="p">,</span> <span class="n">green</span><span class="p">,</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Rect</span><span class="p">(</span><span class="n">xpos</span><span class="p">,</span> <span class="mi">400</span><span class="p">,</span> <span class="mi">160</span><span class="p">,</span> <span class="mi">20</span><span class="p">))</span>
+        <span class="n">pygame</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">rect</span><span class="p">(</span><span class="n">screen</span><span class="p">,</span> <span class="n">grey</span><span class="p">,</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Rect</span><span class="p">(</span><span class="n">xpos</span> <span class="o">+</span> <span class="mi">75</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">200</span><span class="p">))</span>
+    <span class="n">blit_text</span><span class="p">(</span><span class="n">screen</span><span class="p">,</span> <span class="s1">&#39;Start&#39;</span><span class="p">,</span> <span class="p">(</span><span class="n">towers_midx</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">403</span><span class="p">),</span> <span class="n">font_name</span><span class="o">=</span><span class="s1">&#39;mono&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">white</span><span class="p">)</span>
+    <span class="n">blit_text</span><span class="p">(</span><span class="n">screen</span><span class="p">,</span> <span class="s1">&#39;Finish&#39;</span><span class="p">,</span> <span class="p">(</span><span class="n">towers_midx</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="mi">403</span><span class="p">),</span> <span class="n">font_name</span><span class="o">=</span><span class="s1">&#39;mono&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">white</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="make_disks"><a class="viewcode-back" href="../index.html#core.make_disks">[docs]</a><span class="k">def</span> <span class="nf">make_disks</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    Method to create the disks</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">global</span> <span class="n">n_disks</span><span class="p">,</span> <span class="n">disks</span>
+    <span class="n">disks</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">height</span> <span class="o">=</span> <span class="mi">20</span>
+    <span class="n">ypos</span> <span class="o">=</span> <span class="mi">397</span> <span class="o">-</span> <span class="n">height</span>
+    <span class="n">width</span> <span class="o">=</span> <span class="n">n_disks</span> <span class="o">*</span> <span class="mi">23</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_disks</span><span class="p">):</span>
+        <span class="n">disk</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">disk</span><span class="p">[</span><span class="s1">&#39;rect&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Rect</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">)</span>
+        <span class="n">disk</span><span class="p">[</span><span class="s1">&#39;rect&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">midtop</span> <span class="o">=</span> <span class="p">(</span><span class="mi">120</span><span class="p">,</span> <span class="n">ypos</span><span class="p">)</span>
+        <span class="n">disk</span><span class="p">[</span><span class="s1">&#39;val&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">n_disks</span> <span class="o">-</span> <span class="n">i</span>
+        <span class="n">disk</span><span class="p">[</span><span class="s1">&#39;tower&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">disks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">disk</span><span class="p">)</span>
+        <span class="n">ypos</span> <span class="o">-=</span> <span class="n">height</span> <span class="o">+</span> <span class="mi">3</span>
+        <span class="n">width</span> <span class="o">-=</span> <span class="mi">23</span></div>
+
+
+<div class="viewcode-block" id="draw_disks"><a class="viewcode-back" href="../index.html#core.draw_disks">[docs]</a><span class="k">def</span> <span class="nf">draw_disks</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    Method to draw the disks</span>
+<span class="sd">    :return: Display the drawn disks on the screen</span>
+<span class="sd">    :rtype: none</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">global</span> <span class="n">screen</span><span class="p">,</span> <span class="n">disks</span>
+    <span class="k">for</span> <span class="n">disk</span> <span class="ow">in</span> <span class="n">disks</span><span class="p">:</span>
+        <span class="n">pygame</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">rect</span><span class="p">(</span><span class="n">screen</span><span class="p">,</span> <span class="n">blue</span><span class="p">,</span> <span class="n">disk</span><span class="p">[</span><span class="s1">&#39;rect&#39;</span><span class="p">])</span>
+    <span class="k">return</span></div>
+
+
+<div class="viewcode-block" id="draw_ptr"><a class="viewcode-back" href="../index.html#core.draw_ptr">[docs]</a><span class="k">def</span> <span class="nf">draw_ptr</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    Method to show interactivity of the discs to the user</span>
+<span class="sd">    :return: Shows the cursor which is used to move the disks</span>
+<span class="sd">    :rtype: none</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">ptr_points</span> <span class="o">=</span> <span class="p">[(</span><span class="n">towers_midx</span><span class="p">[</span><span class="n">pointing_at</span><span class="p">]</span> <span class="o">-</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">440</span><span class="p">),</span> <span class="p">(</span><span class="n">towers_midx</span><span class="p">[</span><span class="n">pointing_at</span><span class="p">]</span> <span class="o">+</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">440</span><span class="p">),</span>
+                  <span class="p">(</span><span class="n">towers_midx</span><span class="p">[</span><span class="n">pointing_at</span><span class="p">],</span> <span class="mi">433</span><span class="p">)]</span>
+    <span class="n">pygame</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">polygon</span><span class="p">(</span><span class="n">screen</span><span class="p">,</span> <span class="n">red</span><span class="p">,</span> <span class="n">ptr_points</span><span class="p">)</span>
+    <span class="k">return</span></div>
+
+
+<div class="viewcode-block" id="check_won"><a class="viewcode-back" href="../index.html#core.check_won">[docs]</a><span class="k">def</span> <span class="nf">check_won</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    Method to check if the user has won the game</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">global</span> <span class="n">disks</span>
+    <span class="n">over</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="k">for</span> <span class="n">disk</span> <span class="ow">in</span> <span class="n">disks</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">disk</span><span class="p">[</span><span class="s1">&#39;tower&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="n">over</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="k">if</span> <span class="n">over</span><span class="p">:</span>
+        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.2</span><span class="p">)</span>
+        <span class="n">game_over</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="reset"><a class="viewcode-back" href="../index.html#core.reset">[docs]</a><span class="k">def</span> <span class="nf">reset</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    Method to reset the game</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">global</span> <span class="n">steps</span><span class="p">,</span> <span class="n">pointing_at</span><span class="p">,</span> <span class="n">floating</span><span class="p">,</span> <span class="n">floater</span>
+    <span class="n">steps</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">pointing_at</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">floating</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">floater</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">menu_screen</span><span class="p">()</span>
+    <span class="n">make_disks</span><span class="p">()</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    </span>
+<span class="sd">    Call of the menu_screen and make_disks methods to start the game</span>
+
+<span class="sd">    &quot;&quot;&quot;</span></div>
+
+
+<span class="n">menu_screen</span><span class="p">()</span>
+<span class="n">make_disks</span><span class="p">()</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    A loop is used to control the interactivity with the user and in the case of an error,</span>
+<span class="sd">    a message is printed</span>
+<span class="sd">    </span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="c1"># main game loop:</span>
+<span class="k">while</span> <span class="ow">not</span> <span class="n">game_done</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">pygame</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">QUIT</span><span class="p">:</span>
+            <span class="n">game_done</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">KEYDOWN</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">key</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">K_ESCAPE</span><span class="p">:</span>
+                <span class="n">reset</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">key</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">K_q</span><span class="p">:</span>
+                <span class="n">game_done</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">key</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">K_RIGHT</span><span class="p">:</span>
+                <span class="n">pointing_at</span> <span class="o">=</span> <span class="p">(</span><span class="n">pointing_at</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="mi">3</span>
+                <span class="k">if</span> <span class="n">floating</span><span class="p">:</span>
+                    <span class="n">disks</span><span class="p">[</span><span class="n">floater</span><span class="p">][</span><span class="s1">&#39;rect&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">midtop</span> <span class="o">=</span> <span class="p">(</span><span class="n">towers_midx</span><span class="p">[</span><span class="n">pointing_at</span><span class="p">],</span> <span class="mi">100</span><span class="p">)</span>
+                    <span class="n">disks</span><span class="p">[</span><span class="n">floater</span><span class="p">][</span><span class="s1">&#39;tower&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pointing_at</span>
+            <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">key</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">K_LEFT</span><span class="p">:</span>
+                <span class="n">pointing_at</span> <span class="o">=</span> <span class="p">(</span><span class="n">pointing_at</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="mi">3</span>
+                <span class="k">if</span> <span class="n">floating</span><span class="p">:</span>
+                    <span class="n">disks</span><span class="p">[</span><span class="n">floater</span><span class="p">][</span><span class="s1">&#39;rect&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">midtop</span> <span class="o">=</span> <span class="p">(</span><span class="n">towers_midx</span><span class="p">[</span><span class="n">pointing_at</span><span class="p">],</span> <span class="mi">100</span><span class="p">)</span>
+                    <span class="n">disks</span><span class="p">[</span><span class="n">floater</span><span class="p">][</span><span class="s1">&#39;tower&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pointing_at</span>
+            <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">key</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">K_UP</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">floating</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">disk</span> <span class="ow">in</span> <span class="n">disks</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+                    <span class="k">if</span> <span class="n">disk</span><span class="p">[</span><span class="s1">&#39;tower&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">pointing_at</span><span class="p">:</span>
+                        <span class="n">floating</span> <span class="o">=</span> <span class="kc">True</span>
+                        <span class="n">floater</span> <span class="o">=</span> <span class="n">disks</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">disk</span><span class="p">)</span>
+                        <span class="n">disk</span><span class="p">[</span><span class="s1">&#39;rect&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">midtop</span> <span class="o">=</span> <span class="p">(</span><span class="n">towers_midx</span><span class="p">[</span><span class="n">pointing_at</span><span class="p">],</span> <span class="mi">100</span><span class="p">)</span>
+                        <span class="k">break</span>
+            <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">key</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">K_DOWN</span> <span class="ow">and</span> <span class="n">floating</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">disk</span> <span class="ow">in</span> <span class="n">disks</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+                    <span class="k">if</span> <span class="n">disk</span><span class="p">[</span><span class="s1">&#39;tower&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">pointing_at</span> <span class="ow">and</span> <span class="n">disks</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">disk</span><span class="p">)</span> <span class="o">!=</span> <span class="n">floater</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="n">disk</span><span class="p">[</span><span class="s1">&#39;val&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">disks</span><span class="p">[</span><span class="n">floater</span><span class="p">][</span><span class="s1">&#39;val&#39;</span><span class="p">]:</span>
+                            <span class="n">floating</span> <span class="o">=</span> <span class="kc">False</span>
+                            <span class="n">disks</span><span class="p">[</span><span class="n">floater</span><span class="p">][</span><span class="s1">&#39;rect&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">midtop</span> <span class="o">=</span> <span class="p">(</span><span class="n">towers_midx</span><span class="p">[</span><span class="n">pointing_at</span><span class="p">],</span> <span class="n">disk</span><span class="p">[</span><span class="s1">&#39;rect&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">top</span> <span class="o">-</span> <span class="mi">23</span><span class="p">)</span>
+                            <span class="n">steps</span> <span class="o">+=</span> <span class="mi">1</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="n">messagebox</span><span class="o">.</span><span class="n">showinfo</span><span class="p">(</span><span class="s1">&#39;Error&#39;</span><span class="p">,</span> <span class="s1">&#39;Illegal move. Click the screen with your mouse to resume&#39;</span><span class="p">)</span>
+                        <span class="k">break</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">floating</span> <span class="o">=</span> <span class="kc">False</span>
+                    <span class="n">disks</span><span class="p">[</span><span class="n">floater</span><span class="p">][</span><span class="s1">&#39;rect&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">midtop</span> <span class="o">=</span> <span class="p">(</span><span class="n">towers_midx</span><span class="p">[</span><span class="n">pointing_at</span><span class="p">],</span> <span class="mi">400</span> <span class="o">-</span> <span class="mi">23</span><span class="p">)</span>
+                    <span class="n">steps</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="n">screen</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">black</span><span class="p">)</span>
+    <span class="n">draw_towers</span><span class="p">()</span>
+    <span class="n">draw_disks</span><span class="p">()</span>
+    <span class="n">draw_ptr</span><span class="p">()</span>
+    <span class="n">blit_text</span><span class="p">(</span><span class="n">screen</span><span class="p">,</span> <span class="s1">&#39;Steps: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">steps</span><span class="p">),</span> <span class="p">(</span><span class="mi">320</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span> <span class="n">font_name</span><span class="o">=</span><span class="s1">&#39;mono&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">white</span><span class="p">)</span>
+    <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">flip</span><span class="p">()</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">floating</span><span class="p">:</span> <span class="n">check_won</span><span class="p">()</span>
+    <span class="n">clock</span><span class="o">.</span><span class="n">tick</span><span class="p">(</span><span class="n">framerate</span><span class="p">)</span>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">Application of the tower of hanoi in psychology</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2022, Summative Group 1.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.4.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

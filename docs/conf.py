@@ -18,8 +18,8 @@ sys.path.insert(0, os.path.abspath('/modules'))
 # -- Project information -----------------------------------------------------
 
 project = 'Application of the tower of hanoi in psychology'
-copyright = '2022, Summative group 1'
-author = 'Summative group 1'
+copyright = '2022, Summative Group 1'
+author = 'Summative Group 1'
 
 # The full version, including alpha/beta/rc tags
 release = '1.0'
